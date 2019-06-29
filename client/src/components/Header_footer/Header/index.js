@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 
-import { logoutUser } from "../../actions/user_actions";
+import { connect } from "react-redux";
+import { logoutUser } from "../../../actions/user_actions";
 
 class Header extends Component {
   state = {
@@ -30,12 +30,12 @@ class Header extends Component {
         public: false
       },
       {
-        name: "Login",
+        name: "Log in",
         linkTo: "/register_login",
         public: true
       },
       {
-        name: "Logout",
+        name: "Log out",
         linkTo: "/user/logout",
         public: false
       }
@@ -62,14 +62,11 @@ class Header extends Component {
   };
 
   defaultLink = (item, i) =>
-    item.name === "Logout" ? (
+    item.name === "Log out" ? (
       <div
         className="log_out_link"
         key={i}
-        onClick={() => {
-          if (window.confirm("Are you sure you want to logout?"))
-            this.logoutHandler();
-        }}
+        onClick={() => this.logoutHandler()}
       >
         {item.name}
       </div>
@@ -89,12 +86,13 @@ class Header extends Component {
             list.push(item);
           }
         } else {
-          if (item.name !== "Login") {
+          if (item.name !== "Log in") {
             list.push(item);
           }
         }
       });
     }
+
     return list.map((item, i) => {
       if (item.name !== "My Cart") {
         return this.defaultLink(item, i);
@@ -109,7 +107,7 @@ class Header extends Component {
       <header className="bck_b_light">
         <div className="container">
           <div className="left">
-            <div className="logo">WAVES</div>
+            <div className="logo">{/* <Link to="/">WAVES</Link> */}</div>
           </div>
           <div className="right">
             <div className="top">{this.showLinks(this.state.user)}</div>
